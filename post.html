@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MysticPost ✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              mystic: '#6B21A8',
+              background: '#1e1b2e',
+              card: '#2e2a44',
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-background text-white min-h-screen">
+    <div class="max-w-2xl mx-auto p-6">
+      <a href="./index.html" class="text-mystic text-sm underline">← Назад</a>
+      <div id="post" class="mt-6 space-y-4"></div>
+    </div>
+
+    <script>
+      const post = JSON.parse(localStorage.getItem('mysticPost'));
+      const container = document.getElementById('post');
+
+      if (!post) {
+        container.innerHTML = '<p>Пост не найден.</p>';
+      } else {
+        let media = '';
+        if (post.media?.length > 0) {
+          media += '<div class="grid gap-4">';
+          post.media.forEach((url) => {
+            media += `<img src="${url}" class="w-full rounded-xl">`;
+          });
+          media += '</div>';
+        }
+
+        container.innerHTML = `
+          ${media}
+          <p class="whitespace-pre-wrap text-lg text-gray-200">${post.text || ''}</p>
+        `;
+      }
+    </script>
+  </body>
+</html>
