@@ -1,95 +1,35 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en" class="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MysticBlooms</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MysticBlooms — Page 1</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/@splidejs/splide@4.1.3/dist/js/splide.min.js"></script>
-  <link href="https://unpkg.com/@splidejs/splide@4.1.3/dist/css/splide.min.css" rel="stylesheet" />
   <style>
-    body {
-      background: #0d021c;
-      color: #f5f3ff;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    .card {
-      background: #1e0c3a;
-      border-radius: 1rem;
-      box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
-      transition: transform 0.3s ease;
-    }
-    .card:hover {
-      transform: scale(1.02);
-    }
+    body { background-color: #1a1023; color: #f0eaff; font-family: 'Segoe UI', sans-serif; }
+    .card { @apply bg-purple-950/50 rounded-2xl shadow-xl p-4 hover:scale-[1.01] transition; }
   </style>
 </head>
-<body class="min-h-screen px-4 py-8">
-  <div class="max-w-4xl mx-auto">
-    <h1 class="text-4xl font-bold text-center mb-8 text-purple-400">MysticBlooms 🌸</h1>
-    <div id="posts" class="grid gap-8"></div>
-    <div class="flex justify-center mt-10">
-      <button id="loadMore" class="bg-purple-700 hover:bg-purple-800 text-white px-6 py-2 rounded-xl shadow-lg transition">
-        Загрузить ещё
-      </button>
-    </div>
+<body class="min-h-screen flex flex-col items-center py-8 px-4">
+  <h1 class="text-4xl font-bold mb-8 text-purple-300">MysticBlooms ✨</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+    <!-- Посты с 1 по 10 -->
+    <div class="card"><iframe src="https://t.me/mysticbloomsflower/1?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
+    <div class="card"><iframe src="https://t.me/mysticbloomsflower/2?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
+    <div class="card"><iframe src="https://t.me/mysticbloomsflower/3?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
+    <div class="card"><iframe src="https://t.me/mysticbloomsflower/4?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
+    <div class="card"><iframe src="https://t.me/mysticbloomsflower/5?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
+    <div class="card"><iframe src="https://t.me/mysticbloomsflower/6?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
+    <div class="card"><iframe src="https://t.me/mysticbloomsflower/7?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
+    <div class="card"><iframe src="https://t.me/mysticbloomsflower/8?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
+    <div class="card"><iframe src="https://t.me/mysticbloomsflower/9?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
+    <div class="card"><iframe src="https://t.me/mysticbloomsflower/10?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
   </div>
 
-  <script>
-    let currentPage = 0;
-    const postsPerPage = 10;
-
-    async function loadPosts() {
-      const res = await fetch('/posts.json');
-      const allPosts = await res.json();
-      const container = document.getElementById('posts');
-      const slice = allPosts.slice(currentPage * postsPerPage, (currentPage + 1) * postsPerPage);
-      slice.forEach((post, index) => {
-        const card = document.createElement('div');
-        card.className = 'card p-4';
-        let mediaHTML = '';
-
-        if (post.media && post.media.length > 1) {
-          const sliderId = `slider-${currentPage}-${index}`;
-          mediaHTML = `
-            <div id="${sliderId}" class="splide mb-4">
-              <div class="splide__track">
-                <ul class="splide__list">
-                  ${post.media.map(url => `<li class="splide__slide"><img src="${url}" class="rounded-xl w-full" /></li>`).join('')}
-                </ul>
-              </div>
-            </div>
-          `;
-        } else if (post.media && post.media.length === 1) {
-          mediaHTML = `<img src="${post.media[0]}" class="rounded-xl w-full mb-4" />`;
-        }
-
-        card.innerHTML = `
-          ${mediaHTML}
-          <p class="text-lg leading-relaxed">${post.text || ''}</p>
-        `;
-        container.appendChild(card);
-
-        // Init Splide if needed
-        if (post.media && post.media.length > 1) {
-          new Splide(`#${sliderId}`, {
-            type: 'loop',
-            perPage: 1,
-            pagination: true,
-            arrows: true,
-          }).mount();
-        }
-      });
-
-      currentPage++;
-      if ((currentPage * postsPerPage) >= allPosts.length) {
-        document.getElementById('loadMore').style.display = 'none';
-      }
-    }
-
-    document.getElementById('loadMore').addEventListener('click', loadPosts);
-
-    loadPosts();
-  </script>
+  <div class="mt-10 flex space-x-4">
+    <span class="text-gray-500">Страница 1 из 2</span>
+    <a href="page2.html" class="text-purple-300 underline hover:text-purple-200">Следующая ⟶</a>
+  </div>
 </body>
 </html>
