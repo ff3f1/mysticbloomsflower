@@ -1,31 +1,25 @@
-<!-- page3.html -->
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MysticBlooms — Страница 4</title>
-  <style>/* стили такие же */</style>
-</head>
-<body>
-  <header onclick="location.href='index.html'">
-    <h1>🌸 MysticBlooms</h1>
-    <p>Добро пожаловать в наш фиолетовый сад вдохновения ✨</p>
-  </header>
+<head>...тот же head...</head>
+<body class="p-4">
+  <a href="index.html"><div class="welcome">...приветствие...</div></a>
 
-  <!-- Посты 6–1 -->
-  <div class="post"><iframe src="https://t.me/mysticbloomsflower/6?embed=1"></iframe></div>
-  <div class="post"><iframe src="https://t.me/mysticbloomsflower/5?embed=1"></iframe></div>
-  <div class="post"><iframe src="https://t.me/mysticbloomsflower/4?embed=1"></iframe></div>
-  <div class="post"><iframe src="https://t.me/mysticbloomsflower/3?embed=1"></iframe></div>
-  <div class="post"><iframe src="https://t.me/mysticbloomsflower/2?embed=1"></iframe></div>
-  <div class="post"><iframe src="https://t.me/mysticbloomsflower/1?embed=1"></iframe></div>
+  <div class="grid gap-6">
+    <!-- Пост 6 -->
+    <div class="card p-4">
+      <p class="text-sm mb-2 text-purple-300">20 марта 2025</p>
+      <p>🌸 Нежность весны в каждом лепестке.</p>
+      <img src="https://telegra.ph/file/example5.jpg" alt="Букет" class="rounded mt-2" />
+    </div>
 
-  <nav>
+    <!-- Добавь посты 5–1 -->
+  </div>
+
+  <div class="flex justify-center mt-6 space-x-4 text-purple-200">
     <a href="index.html">1</a>
     <a href="page.html">2</a>
     <a href="page2.html">3</a>
-    <a href="page3.html">4</a>
-  </nav>
+    <span class="underline">4</span>
+  </div>
 </body>
 </html>
