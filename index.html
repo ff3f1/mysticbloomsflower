@@ -1,63 +1,76 @@
 <!DOCTYPE html>
-<html lang="ru" class="dark">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MysticBlooms 🌸</title>
+    <title>MysticBlooms</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              mystic: '#6B21A8',
-              background: '#1e1b2e',
-              card: '#2e2a44',
-            },
-          },
-        },
-      };
-    </script>
+    <script src="https://unpkg.com/@splidejs/splide@4.1.3/dist/js/splide.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@splidejs/splide@4.1.3/dist/css/splide.min.css"
+    />
+    <style>
+      body {
+        background: #1e1b2e;
+        color: #f8f7ff;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+    </style>
   </head>
-  <body class="bg-background text-white min-h-screen font-sans">
-    <div class="container mx-auto p-4">
-      <h1 class="text-4xl font-bold text-mystic mb-6 text-center">MysticBlooms 🌸</h1>
-      <div id="posts" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-    </div>
+  <body class="min-h-screen px-4 py-8">
+    <h1 class="text-4xl font-bold text-center mb-8 text-purple-300">
+      MysticBlooms 💜
+    </h1>
+    <div id="posts" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
     <script>
       async function loadPosts() {
-        const res = await fetch('./posts.json');
+        const res = await fetch("https://mysticbloomsflower.onrender.com/posts.json");
         const posts = await res.json();
-        const container = document.getElementById('posts');
+        const container = document.getElementById("posts");
 
-        posts.slice(0, 30).forEach((post) => {
-          const card = document.createElement('div');
-          card.className = 'bg-card rounded-2xl shadow-lg p-4 hover:scale-105 transform transition-all duration-300 cursor-pointer';
+        posts.slice(0, 10).forEach((post, index) => {
+          const div = document.createElement("div");
+          div.className = "bg-purple-900 rounded-2xl shadow-lg p-4 hover:scale-105 transition-transform";
 
-          let mediaContent = '';
-          if (post.media?.length > 1) {
-            mediaContent += '<div class="flex overflow-x-scroll gap-2 pb-2">';
-            post.media.forEach((img) => {
-              mediaContent += `<img src="${img}" class="h-40 rounded-lg flex-shrink-0" />`;
-            });
-            mediaContent += '</div>';
-          } else if (post.media?.length === 1) {
-            mediaContent = `<img src="${post.media[0]}" class="w-full h-48 object-cover rounded-xl mb-2">`;
+          // Media preview
+          let media = "";
+          if (post.media && post.media.length > 0) {
+            if (post.media.length === 1) {
+              media = `<img src="${post.media[0]}" alt="" class="rounded-xl w-full mb-2">`;
+            } else {
+              const slides = post.media
+                .map((url) => `<li class="splide__slide"><img src="${url}" class="w-full rounded-xl" /></li>`) 
+                .join("");
+              media = `
+                <div id="splide${index}" class="splide mb-2">
+                  <div class="splide__track">
+                    <ul class="splide__list">${slides}</ul>
+                  </div>
+                </div>`;
+            }
           }
 
-          card.innerHTML = `
-            ${mediaContent}
-            <p class="text-sm text-gray-300">${post.text?.slice(0, 100) || 'Без текста'}...</p>
+          // Text preview
+          const text = post.text ? `<p class="text-sm">${post.text}</p>` : "";
+
+          div.innerHTML = `
+            ${media}
+            ${text}
           `;
+          container.appendChild(div);
 
-          card.onclick = () => {
-            localStorage.setItem('mysticPost', JSON.stringify(post));
-            window.location.href = './post.html';
-          };
-
-          container.appendChild(card);
+          if (post.media.length > 1) {
+            new Splide(`#splide${index}`, {
+              type: "loop",
+              perPage: 1,
+              autoplay: true,
+              interval: 3000,
+              arrows: false,
+              pagination: true,
+            }).mount();
+          }
         });
       }
 
