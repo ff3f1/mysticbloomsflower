@@ -1,35 +1,70 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MysticBlooms — Page 1</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MysticBlooms — Главная</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    body { background-color: #1a1023; color: #f0eaff; font-family: 'Segoe UI', sans-serif; }
-    .card { @apply bg-purple-950/50 rounded-2xl shadow-xl p-4 hover:scale-[1.01] transition; }
+    body {
+      background-color: #1e1b2e;
+      color: #f5f3ff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .card {
+      background-color: #2a243b;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 20px rgba(128, 90, 213, 0.4);
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col items-center py-8 px-4">
-  <h1 class="text-4xl font-bold mb-8 text-purple-300">MysticBlooms ✨</h1>
+<body class="min-h-screen px-4 py-8">
+  <!-- Приветствие -->
+  <header class="text-center mb-10">
+    <h1 class="text-4xl font-bold text-purple-300 mb-4">MysticBlooms 🌸</h1>
+    <p class="text-purple-200">Добро пожаловать в наш волшебный цветочный мир!</p>
+  </header>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
-    <!-- Посты с 1 по 10 -->
-    <div class="card"><iframe src="https://t.me/mysticbloomsflower/1?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
-    <div class="card"><iframe src="https://t.me/mysticbloomsflower/2?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
-    <div class="card"><iframe src="https://t.me/mysticbloomsflower/3?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
-    <div class="card"><iframe src="https://t.me/mysticbloomsflower/4?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
-    <div class="card"><iframe src="https://t.me/mysticbloomsflower/5?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
-    <div class="card"><iframe src="https://t.me/mysticbloomsflower/6?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
-    <div class="card"><iframe src="https://t.me/mysticbloomsflower/7?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
-    <div class="card"><iframe src="https://t.me/mysticbloomsflower/8?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
-    <div class="card"><iframe src="https://t.me/mysticbloomsflower/9?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
-    <div class="card"><iframe src="https://t.me/mysticbloomsflower/10?embed=1" width="100%" height="200" frameborder="0"></iframe></div>
-  </div>
+  <div id="posts" class="grid gap-6 md:grid-cols-2 xl:grid-cols-3"></div>
 
-  <div class="mt-10 flex space-x-4">
-    <span class="text-gray-500">Страница 1 из 2</span>
-    <a href="page2.html" class="text-purple-300 underline hover:text-purple-200">Следующая ⟶</a>
-  </div>
+  <script>
+    const postsContainer = document.getElementById('posts');
+
+    fetch('https://mysticbloomsflower.onrender.com/posts.json')
+      .then(res => res.json())
+      .then(posts => {
+        const unique = [];
+        const seen = new Set();
+        posts.reverse().forEach(post => {
+          if (!seen.has(post.id)) {
+            seen.add(post.id);
+            unique.push(post);
+          }
+        });
+
+        const first10 = unique.slice(0, 10);
+
+        first10.forEach(post => {
+          const postLink = `https://t.me/mysticbloomsflower/${post.id}`;
+          const card = document.createElement('div');
+          card.className = 'card rounded-2xl p-4';
+
+          const iframe = document.createElement('iframe');
+          iframe.src = `https://t.me/mysticbloomsflower/${post.id}?embed=1`;
+          iframe.width = "100%";
+          iframe.height = "200";
+          iframe.setAttribute("frameborder", "0");
+          iframe.setAttribute("scrolling", "no");
+          iframe.setAttribute("allowfullscreen", true);
+          iframe.className = 'rounded-xl';
+
+          card.appendChild(iframe);
+          postsContainer.appendChild(card);
+        });
+      });
+  </script>
 </body>
 </html>
