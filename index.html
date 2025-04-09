@@ -1,98 +1,67 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mysticblooms — Telegram Посты</title>
-  <script async src="https://telegram.org/js/telegram-widget.js?22"></script>
-  <style>
-    body {
-      font-family: sans-serif;
-      background: #f9f9f9;
-      margin: 0;
-      padding: 2rem;
-    }
-    .post-container {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-    .pagination {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-    }
-    button {
-      padding: 0.5rem 1rem;
-      border: none;
-      background: #111;
-      color: white;
-      border-radius: 0.5rem;
-      cursor: pointer;
-    }
-    button:disabled {
-      opacity: 0.5;
-      cursor: default;
-    }
-  </style>
-</head>
-<body>
-  <h1>Mysticblooms — Telegram посты</h1>
-  <div class="post-container" id="posts"></div>
-  <div class="pagination">
-    <button id="prev">Назад</button>
-    <button id="next">Вперёд</button>
-  </div>
+<html lang="ru" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MysticBlooms 🌸</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              mystic: '#6B21A8',
+              background: '#1e1b2e',
+              card: '#2e2a44',
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-background text-white min-h-screen font-sans">
+    <div class="container mx-auto p-4">
+      <h1 class="text-4xl font-bold text-mystic mb-6 text-center">MysticBlooms 🌸</h1>
+      <div id="posts" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
 
-  <script>
-    // Список ID постов (последние 30 штук вручную)
-    const postIds = [
-      83, 82, 81, 80, 79, 78, 77, 76, 75, 74,
-      73, 72, 71, 70, 69, 68, 67, 66, 65, 64,
-      63, 62, 61, 60, 59, 58, 57, 56, 55, 54
-    ];
+    <script>
+      async function loadPosts() {
+        const res = await fetch('./posts.json');
+        const posts = await res.json();
+        const container = document.getElementById('posts');
 
-    const postsPerPage = 10;
-    let currentPage = 1;
+        posts.slice(0, 30).forEach((post) => {
+          const card = document.createElement('div');
+          card.className = 'bg-card rounded-2xl shadow-lg p-4 hover:scale-105 transform transition-all duration-300 cursor-pointer';
 
-    const renderPosts = () => {
-      const container = document.getElementById('posts');
-      container.innerHTML = '';
-      const start = (currentPage - 1) * postsPerPage;
-      const end = start + postsPerPage;
-      const pagePosts = postIds.slice(start, end);
+          let mediaContent = '';
+          if (post.media?.length > 1) {
+            mediaContent += '<div class="flex overflow-x-scroll gap-2 pb-2">';
+            post.media.forEach((img) => {
+              mediaContent += `<img src="${img}" class="h-40 rounded-lg flex-shrink-0" />`;
+            });
+            mediaContent += '</div>';
+          } else if (post.media?.length === 1) {
+            mediaContent = `<img src="${post.media[0]}" class="w-full h-48 object-cover rounded-xl mb-2">`;
+          }
 
-      pagePosts.forEach((id) => {
-        const iframe = document.createElement('iframe');
-        iframe.src = `https://t.me/mysticbloomsflower/${id}?embed=1`;
-        iframe.width = '100%';
-        iframe.height = '200';
-        iframe.frameBorder = '0';
-        iframe.scrolling = 'no';
-        iframe.setAttribute('allowtransparency', 'true');
-        container.appendChild(iframe);
-      });
+          card.innerHTML = `
+            ${mediaContent}
+            <p class="text-sm text-gray-300">${post.text?.slice(0, 100) || 'Без текста'}...</p>
+          `;
 
-      document.getElementById('prev').disabled = currentPage === 1;
-      document.getElementById('next').disabled = end >= postIds.length;
-    };
+          card.onclick = () => {
+            localStorage.setItem('mysticPost', JSON.stringify(post));
+            window.location.href = './post.html';
+          };
 
-    document.getElementById('prev').onclick = () => {
-      if (currentPage > 1) {
-        currentPage--;
-        renderPosts();
+          container.appendChild(card);
+        });
       }
-    };
 
-    document.getElementById('next').onclick = () => {
-      if ((currentPage * postsPerPage) < postIds.length) {
-        currentPage++;
-        renderPosts();
-      }
-    };
-
-    renderPosts();
-  </script>
-</body>
+      loadPosts();
+    </script>
+  </body>
 </html>
