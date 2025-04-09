@@ -1,49 +1,40 @@
+<!-- index.html -->
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="bg-[#0b0014] text-white">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MysticBlooms 🌸</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MysticBlooms</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    body { background-color: #1a0125; color: #f3e8ff; font-family: sans-serif; }
-    .card { background-color: #2c0a3d; border-radius: 1rem; box-shadow: 0 0 10px #7e22ce; transition: transform 0.3s ease; }
-    .card:hover { transform: translateY(-5px); }
-    .welcome { background-color: #3b0764; border: 2px solid #9333ea; padding: 1rem; margin-bottom: 2rem; border-radius: 1rem; text-align: center; }
-    a { color: #c084fc; }
-  </style>
 </head>
-<body class="p-4">
-  <a href="index.html">
-    <div class="welcome">
-      <h1 class="text-2xl font-bold">🌸 Добро пожаловать в MysticBlooms!</h1>
-      <p class="mt-2">Здесь цветёт магия — откройте для себя таинственные букеты, наполненные историей и красотой.</p>
-    </div>
+<body class="min-h-screen flex flex-col items-center p-4">
+
+  <!-- Приветственный пост -->
+  <a href="index.html" class="w-full max-w-4xl mb-8 p-6 bg-purple-900 rounded-2xl shadow-lg transition transform hover:scale-105">
+    <h1 class="text-3xl font-bold mb-2">🌸 Добро пожаловать в MysticBlooms!</h1>
+    <p class="text-lg">Исследуйте магию цветов и природы через каждый наш пост.</p>
   </a>
 
-  <div class="grid gap-6">
-    <!-- Пост 36 -->
-    <div class="card p-4">
-      <p class="text-sm mb-2 text-purple-300">3 апреля 2025</p>
-      <p>✨ Волшебный букет с душистым лавандовым облаком.</p>
-      <img src="https://telegra.ph/file/example1.jpg" alt="Букет" class="rounded mt-2" />
-    </div>
-
-    <!-- Пост 35 -->
-    <div class="card p-4">
-      <p class="text-sm mb-2 text-purple-300">2 апреля 2025</p>
-      <p>🌹 Загадка весны, собранная в алых лепестках.</p>
-      <img src="https://telegra.ph/file/example2.jpg" alt="Букет" class="rounded mt-2" />
-    </div>
-
-    <!-- Добавь сюда остальные посты 34–27 -->
+  <!-- Посты -->
+  <div class="space-y-6 w-full max-w-4xl">
+    <iframe src="https://t.me/mysticbloomsflower/36?embed=1" width="100%" height="500" frameborder="0"></iframe>
+    <iframe src="https://t.me/mysticbloomsflower/35?embed=1" width="100%" height="500" frameborder="0"></iframe>
+    <iframe src="https://t.me/mysticbloomsflower/34?embed=1" width="100%" height="500" frameborder="0"></iframe>
+    <iframe src="https://t.me/mysticbloomsflower/33?embed=1" width="100%" height="500" frameborder="0"></iframe>
+    <iframe src="https://t.me/mysticbloomsflower/32?embed=1" width="100%" height="500" frameborder="0"></iframe>
+    <iframe src="https://t.me/mysticbloomsflower/31?embed=1" width="100%" height="500" frameborder="0"></iframe>
+    <iframe src="https://t.me/mysticbloomsflower/30?embed=1" width="100%" height="500" frameborder="0"></iframe>
+    <iframe src="https://t.me/mysticbloomsflower/29?embed=1" width="100%" height="500" frameborder="0"></iframe>
+    <iframe src="https://t.me/mysticbloomsflower/28?embed=1" width="100%" height="500" frameborder="0"></iframe>
+    <iframe src="https://t.me/mysticbloomsflower/27?embed=1" width="100%" height="500" frameborder="0"></iframe>
   </div>
 
-  <div class="flex justify-center mt-6 space-x-4 text-purple-200">
-    <span class="underline">1</span>
-    <a href="page.html">2</a>
-    <a href="page2.html">3</a>
-    <a href="page3.html">4</a>
+  <!-- Пагинация -->
+  <div class="mt-8 flex space-x-4 text-lg">
+    <span class="text-gray-400">1</span>
+    <a href="page.html" class="hover:underline">2</a>
+    <a href="page2.html" class="hover:underline">3</a>
+    <a href="page3.html" class="hover:underline">4</a>
   </div>
 </body>
 </html>
