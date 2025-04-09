@@ -1,70 +1,35 @@
+<!-- page2.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MysticBlooms – Страница 2</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      background-color: #0f0c1a;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(255, 0, 255, 0.2);
-    }
-    .fade-in {
-      animation: fadeIn 1s ease-in-out;
-    }
-    @keyframes fadeIn {
-      0% {opacity: 0;}
-      100% {opacity: 1;}
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MysticBlooms — Страница 3</title>
+  <style>/* такой же стиль как выше */</style>
 </head>
-<body class="text-white px-4 py-6">
+<body>
+  <header onclick="location.href='index.html'">
+    <h1>🌸 MysticBlooms</h1>
+    <p>Добро пожаловать в наш фиолетовый сад вдохновения ✨</p>
+  </header>
 
-  <!-- Заголовок -->
-  <section class="mb-10 fade-in">
-    <div class="bg-purple-800 bg-opacity-50 p-6 rounded-2xl shadow-xl text-center">
-      <h1 class="text-3xl font-bold mb-2">MysticBlooms — страница 2</h1>
-      <p class="text-lg text-purple-200">Посты с 11 по 20</p>
-    </div>
-  </section>
+  <!-- Посты 16–7 -->
+  <div class="post"><iframe src="https://t.me/mysticbloomsflower/16?embed=1"></iframe></div>
+  <div class="post"><iframe src="https://t.me/mysticbloomsflower/15?embed=1"></iframe></div>
+  <div class="post"><iframe src="https://t.me/mysticbloomsflower/14?embed=1"></iframe></div>
+  <div class="post"><iframe src="https://t.me/mysticbloomsflower/13?embed=1"></iframe></div>
+  <div class="post"><iframe src="https://t.me/mysticbloomsflower/12?embed=1"></iframe></div>
+  <div class="post"><iframe src="https://t.me/mysticbloomsflower/11?embed=1"></iframe></div>
+  <div class="post"><iframe src="https://t.me/mysticbloomsflower/10?embed=1"></iframe></div>
+  <div class="post"><iframe src="https://t.me/mysticbloomsflower/9?embed=1"></iframe></div>
+  <div class="post"><iframe src="https://t.me/mysticbloomsflower/8?embed=1"></iframe></div>
+  <div class="post"><iframe src="https://t.me/mysticbloomsflower/7?embed=1"></iframe></div>
 
-  <!-- Контейнер для карточек -->
-  <div id="posts" class="grid md:grid-cols-2 gap-6 fade-in"></div>
-
-  <!-- Пагинация -->
-  <div class="mt-10 text-center space-x-4">
-    <a href="index.html" class="text-purple-400 hover:underline">← Назад</a>
-    <a href="page3.html" class="text-purple-400 hover:underline">Вперёд →</a>
-  </div>
-
-  <!-- Скрипт загрузки -->
-  <script>
-    fetch('https://mysticbloomsflower.onrender.com/posts.json')
-      .then(res => res.json())
-      .then(posts => {
-        const container = document.getElementById('posts');
-        const slice = posts.slice(-20, -10).reverse();
-        slice.forEach(post => {
-          const card = document.createElement('div');
-          card.className = "card bg-purple-900 p-4 rounded-2xl shadow-lg transition-all duration-300";
-
-          const media = post.media && post.media.length > 0
-            ? `<img src="${post.media[0]}" alt="" class="w-full rounded-xl mb-4"/>`
-            : '';
-
-          card.innerHTML = `
-            ${media}
-            <p class="text-purple-100 whitespace-pre-line">${post.text}</p>
-            <a href="https://t.me/mysticbloomsflower/${post.id}" target="_blank" class="text-purple-400 mt-4 inline-block hover:underline">Открыть пост в Telegram →</a>
-          `;
-          container.appendChild(card);
-        });
-      });
-  </script>
+  <nav>
+    <a href="index.html">1</a>
+    <a href="page.html">2</a>
+    <a href="page2.html">3</a>
+    <a href="page3.html">4</a>
+  </nav>
 </body>
 </html>
