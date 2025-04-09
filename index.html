@@ -3,66 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MysticBlooms — Главная</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <title>MysticBlooms</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      background-color: #1e1b2e;
-      color: #f5f3ff;
+      background-color: #0f0c1a;
       font-family: 'Segoe UI', sans-serif;
     }
-    .card {
-      background-color: #2a243b;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
     .card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 10px 20px rgba(128, 90, 213, 0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(255, 0, 255, 0.2);
+    }
+    .fade-in {
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      0% {opacity: 0;}
+      100% {opacity: 1;}
     }
   </style>
 </head>
-<body class="min-h-screen px-4 py-8">
-  <!-- Приветствие -->
-  <header class="text-center mb-10">
-    <h1 class="text-4xl font-bold text-purple-300 mb-4">MysticBlooms 🌸</h1>
-    <p class="text-purple-200">Добро пожаловать в наш волшебный цветочный мир!</p>
-  </header>
+<body class="text-white px-4 py-6">
 
-  <div id="posts" class="grid gap-6 md:grid-cols-2 xl:grid-cols-3"></div>
+  <!-- Приветственный пост -->
+  <section class="mb-10 fade-in">
+    <div class="bg-purple-800 bg-opacity-50 p-6 rounded-2xl shadow-xl text-center">
+      <h1 class="text-4xl font-bold mb-2">Добро пожаловать в MysticBlooms</h1>
+      <p class="text-lg text-purple-200">Исследуй магию, вдохновение и красоту. Листай посты ниже и открывай свой мир мистики 🌙</p>
+    </div>
+  </section>
 
+  <!-- Контейнер для карточек постов -->
+  <div id="posts" class="grid md:grid-cols-2 gap-6 fade-in"></div>
+
+  <!-- Пагинация -->
+  <div class="mt-10 text-center">
+    <a href="page2.html" class="text-purple-400 hover:underline">← Предыдущая страница</a>
+  </div>
+
+  <!-- Скрипт подгрузки постов -->
   <script>
-    const postsContainer = document.getElementById('posts');
-
     fetch('https://mysticbloomsflower.onrender.com/posts.json')
       .then(res => res.json())
       .then(posts => {
-        const unique = [];
-        const seen = new Set();
-        posts.reverse().forEach(post => {
-          if (!seen.has(post.id)) {
-            seen.add(post.id);
-            unique.push(post);
-          }
-        });
-
-        const first10 = unique.slice(0, 10);
-
-        first10.forEach(post => {
-          const postLink = `https://t.me/mysticbloomsflower/${post.id}`;
+        const container = document.getElementById('posts');
+        // Показать последние 10 постов
+        const latestPosts = posts.slice(-10).reverse();
+        latestPosts.forEach(post => {
           const card = document.createElement('div');
-          card.className = 'card rounded-2xl p-4';
+          card.className = "card bg-purple-900 p-4 rounded-2xl shadow-lg transition-all duration-300";
 
-          const iframe = document.createElement('iframe');
-          iframe.src = `https://t.me/mysticbloomsflower/${post.id}?embed=1`;
-          iframe.width = "100%";
-          iframe.height = "200";
-          iframe.setAttribute("frameborder", "0");
-          iframe.setAttribute("scrolling", "no");
-          iframe.setAttribute("allowfullscreen", true);
-          iframe.className = 'rounded-xl';
+          const media = post.media && post.media.length > 0
+            ? `<img src="${post.media[0]}" alt="" class="w-full rounded-xl mb-4"/>`
+            : '';
 
-          card.appendChild(iframe);
-          postsContainer.appendChild(card);
+          card.innerHTML = `
+            ${media}
+            <p class="text-purple-100 whitespace-pre-line">${post.text}</p>
+            <a href="https://t.me/mysticbloomsflower/${post.id}" target="_blank" class="text-purple-400 mt-4 inline-block hover:underline">Открыть пост в Telegram →</a>
+          `;
+          container.appendChild(card);
         });
       });
   </script>
