@@ -1,35 +1,25 @@
-<!-- page2.html -->
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MysticBlooms — Страница 3</title>
-  <style>/* такой же стиль как выше */</style>
-</head>
-<body>
-  <header onclick="location.href='index.html'">
-    <h1>🌸 MysticBlooms</h1>
-    <p>Добро пожаловать в наш фиолетовый сад вдохновения ✨</p>
-  </header>
+<head>...тот же head...</head>
+<body class="p-4">
+  <a href="index.html"><div class="welcome">...тот же блок...</div></a>
 
-  <!-- Посты 16–7 -->
-  <div class="post"><iframe src="https://t.me/mysticbloomsflower/16?embed=1"></iframe></div>
-  <div class="post"><iframe src="https://t.me/mysticbloomsflower/15?embed=1"></iframe></div>
-  <div class="post"><iframe src="https://t.me/mysticbloomsflower/14?embed=1"></iframe></div>
-  <div class="post"><iframe src="https://t.me/mysticbloomsflower/13?embed=1"></iframe></div>
-  <div class="post"><iframe src="https://t.me/mysticbloomsflower/12?embed=1"></iframe></div>
-  <div class="post"><iframe src="https://t.me/mysticbloomsflower/11?embed=1"></iframe></div>
-  <div class="post"><iframe src="https://t.me/mysticbloomsflower/10?embed=1"></iframe></div>
-  <div class="post"><iframe src="https://t.me/mysticbloomsflower/9?embed=1"></iframe></div>
-  <div class="post"><iframe src="https://t.me/mysticbloomsflower/8?embed=1"></iframe></div>
-  <div class="post"><iframe src="https://t.me/mysticbloomsflower/7?embed=1"></iframe></div>
+  <div class="grid gap-6">
+    <!-- Пост 16 -->
+    <div class="card p-4">
+      <p class="text-sm mb-2 text-purple-300">25 марта 2025</p>
+      <p>💐 Ароматы детства в каждой розе.</p>
+      <img src="https://telegra.ph/file/example4.jpg" alt="Букет" class="rounded mt-2" />
+    </div>
 
-  <nav>
+    <!-- Добавь сюда посты 15–7 -->
+  </div>
+
+  <div class="flex justify-center mt-6 space-x-4 text-purple-200">
     <a href="index.html">1</a>
     <a href="page.html">2</a>
-    <a href="page2.html">3</a>
+    <span class="underline">3</span>
     <a href="page3.html">4</a>
-  </nav>
+  </div>
 </body>
 </html>
