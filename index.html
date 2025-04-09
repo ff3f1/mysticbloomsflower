@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mysticblooms — Telegram Посты</title>
+  <script async src="https://telegram.org/js/telegram-widget.js?22"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 2rem;
+    }
+    .post-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      border: none;
+      background: #111;
+      color: white;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mysticblooms — Telegram посты</h1>
+  <div class="post-container" id="posts"></div>
+  <div class="pagination">
+    <button id="prev">Назад</button>
+    <button id="next">Вперёд</button>
+  </div>
+
+  <script>
+    // Список ID постов (последние 30 штук вручную)
+    const postIds = [
+      83, 82, 81, 80, 79, 78, 77, 76, 75, 74,
+      73, 72, 71, 70, 69, 68, 67, 66, 65, 64,
+      63, 62, 61, 60, 59, 58, 57, 56, 55, 54
+    ];
+
+    const postsPerPage = 10;
+    let currentPage = 1;
+
+    const renderPosts = () => {
+      const container = document.getElementById('posts');
+      container.innerHTML = '';
+      const start = (currentPage - 1) * postsPerPage;
+      const end = start + postsPerPage;
+      const pagePosts = postIds.slice(start, end);
+
+      pagePosts.forEach((id) => {
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://t.me/mysticbloomsflower/${id}?embed=1`;
+        iframe.width = '100%';
+        iframe.height = '200';
+        iframe.frameBorder = '0';
+        iframe.scrolling = 'no';
+        iframe.setAttribute('allowtransparency', 'true');
+        container.appendChild(iframe);
+      });
+
+      document.getElementById('prev').disabled = currentPage === 1;
+      document.getElementById('next').disabled = end >= postIds.length;
+    };
+
+    document.getElementById('prev').onclick = () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderPosts();
+      }
+    };
+
+    document.getElementById('next').onclick = () => {
+      if ((currentPage * postsPerPage) < postIds.length) {
+        currentPage++;
+        renderPosts();
+      }
+    };
+
+    renderPosts();
+  </script>
+</body>
+</html>
